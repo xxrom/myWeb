@@ -1,0 +1,33 @@
+.block1 {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.b1__img {
+  position: absolute;
+  height: 100vh;
+}
+
+.b1__box {
+  display: flex;
+  position: absolute;
+
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  color: white;
+
+  font-size: 2em;
+  font-family: sans-serif;
+  text-transform: uppercase;
+}
+
+.b1__box-title {
+  align-self: center;
+}
