@@ -17,6 +17,32 @@
   height: 100vh;
 }
 
+.wrapper__myClass {
+  height: 500px;
+  width: 500px;
+  background-color: skyblue;
+}
+
+.myClass {
+  background-color: red;
+
+  width: 100px;
+  height: 100px;
+}
+
+.long-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 200px;
+
+  overflow: hidden;
+
+  border: 1px solid red;
+}
+.long-text__btn {
+  float: right;
+}
+
 .b1__text {
   display: flex;
   position: absolute;
@@ -66,6 +92,10 @@
   }
   .b1__text-description {
     font-size: 1em;
+  }
+
+  .b1__social-desktop {
+    display: none;
   }
 
   .b1__social-mobile {

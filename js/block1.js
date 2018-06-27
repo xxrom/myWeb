@@ -9,3 +9,7 @@ window.onscroll = function block1() {
 
   mainImg.style.top = `${top}px`;
 };
+
+const red = document.getElementsByClassName('red')[0];
+
+red.style.color = 'red';
