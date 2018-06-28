@@ -17,33 +17,7 @@
   height: 100vh;
 }
 
-.wrapper__myClass {
-  height: 500px;
-  width: 500px;
-  background-color: skyblue;
-}
-
-.myClass {
-  background-color: red;
-
-  width: 100px;
-  height: 100px;
-}
-
-.long-text {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 200px;
-
-  overflow: hidden;
-
-  border: 1px solid red;
-}
-.long-text__btn {
-  float: right;
-}
-
-.b1__text {
+.b1__mobile-text {
   display: flex;
   position: absolute;
 
@@ -60,7 +34,7 @@
 
   background-color: rgba(0, 0, 0, 0.3);
 }
-.b1__text-title {
+.b1__mobile-text-title {
   font-size: 4em;
 
   letter-spacing: 0.2em;
@@ -68,29 +42,40 @@
   text-transform: uppercase;
   font-weight: 100;
 }
-.b1__text-description {
+.b1__mobile-text-description {
   font-size: 1.2em;
 }
 
-.b1__social-mobile {
+.b1__mobile-social {
   display: none;
 }
 
+.b1__desktop-social {
+  position: relative;
+  display: flex;
+
+  border: 5px solid red;
+}
+.b1__d-gitlab,
+.b1__d-github {
+  height: 4em;
+}
+
 @media (max-width: 1200px) {
-  .b1__text-title {
+  .b1__mobile-text-title {
     font-size: 3em;
   }
 }
 
 @media (max-width: 768px) {
-  .b1__text {
+  .b1__mobile-text {
     justify-content: flex-start;
   }
-  .b1__text-title {
+  .b1__mobile-text-title {
     font-size: 2em;
     padding-top: 2em;
   }
-  .b1__text-description {
+  .b1__mobile-text-description {
     font-size: 1em;
   }
 
@@ -98,7 +83,7 @@
     display: none;
   }
 
-  .b1__social-mobile {
+  .b1__mobile-social {
     position: absolute;
     display: flex;
 
@@ -110,14 +95,14 @@
     padding-bottom: 3em;
   }
 
-  .b1__github,
-  .b1__gitlab {
+  .b1__m-github,
+  .b1__m-gitlab {
     cursor: pointer;
     margin: 0 0.5em;
   }
 
-  .b1__github-img,
-  .b1__gitlab-img {
+  .b1__m-github-img,
+  .b1__m-gitlab-img {
     height: 2em;
   }
 }
