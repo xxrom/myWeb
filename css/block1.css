@@ -43,7 +43,7 @@
   font-weight: 100;
 }
 .b1__mobile-text-description {
-  font-size: 1.2em;
+  font-size: 1em;
 }
 
 .b1__mobile-social {
@@ -80,14 +80,12 @@
     padding-bottom: 3em;
   }
 
-  .b1__m-github,
-  .b1__m-gitlab {
+  .b1__box {
     cursor: pointer;
     margin: 0 0.5em;
   }
 
-  .b1__m-github-img,
-  .b1__m-gitlab-img {
+  .b1__box-img {
     height: 2em;
   }
 }

@@ -2,12 +2,37 @@
   position: relative;
   display: flex;
 
-  border: 5px dashed red;
+  justify-content: center;
+  align-items: center;
 
   padding: 2em;
 }
 
-.b2__github-img,
-.b2__gitlab-img {
-  height: 3em;
+.b2__social-text {
+  font-size: 2em;
+
+  letter-spacing: 0.2em;
+  text-decoration: underline;
+
+  font-family: 'Oswald', 'Raleway', 'Helvetica Neue', Helvetica, Arial,
+    sans-serif;
+  margin-right: 1em;
+}
+
+.b2__box {
+  margin: 1em;
+  cursor: pointer;
+}
+
+.b2__box-img {
+  height: 4em;
+  padding: 1em;
+
+  border: 1px #f3f3f3 solid;
+}
+
+@media (max-width: 768px) {
+  .block2 {
+    display: none;
+  }
 }
