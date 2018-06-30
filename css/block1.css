@@ -50,17 +50,6 @@
   display: none;
 }
 
-.b1__desktop-social {
-  position: relative;
-  display: flex;
-
-  border: 5px solid red;
-}
-.b1__d-gitlab,
-.b1__d-github {
-  height: 4em;
-}
-
 @media (max-width: 1200px) {
   .b1__mobile-text-title {
     font-size: 3em;
@@ -77,10 +66,6 @@
   }
   .b1__mobile-text-description {
     font-size: 1em;
-  }
-
-  .b1__social-desktop {
-    display: none;
   }
 
   .b1__mobile-social {

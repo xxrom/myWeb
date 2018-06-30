@@ -1,4 +1,13 @@
 .block2 {
   position: relative;
-  min-height: 50vh;
+  display: flex;
+
+  border: 5px dashed red;
+
+  padding: 2em;
+}
+
+.b2__github-img,
+.b2__gitlab-img {
+  height: 3em;
 }
