@@ -5,6 +5,7 @@
 
   font-family: 'Oswald', 'Raleway', 'Helvetica Neue', Helvetica, Arial,
     sans-serif;
+  letter-spacing: 0.1em;
 }
 
 .b4__box-wrapper {
@@ -26,12 +27,14 @@
   min-height: 50vw;
 }
 
-.b4__name {
+.b4__name,
+.b4__title {
   font-size: 2em;
   font-weight: 100;
 }
 
-.b4__education {
+.b4__education,
+.b4__work {
   display: flex;
   flex-direction: row;
 
@@ -39,15 +42,22 @@
   align-items: center;
   align-content: space-around;
 
-  padding: 3em;
+  padding: 3em 3em 0 3em;
 
   font-weight: 200;
 }
-.b4__education-enter {
+.b4__education-enter,
+.b4__work-name {
   font-weight: 400;
+  font-size: 1.5em;
 }
-.b4__education-item {
+.b4__education-item,
+.b4__work-palace {
   list-style-type: none;
+}
+.b4__work {
+  display: flex;
+  flex-flow: row;
 }
 
 @media (max-width: 768px) {
@@ -58,5 +68,9 @@
   .b4__box-wrapper__mobile-text {
     width: 100vw;
     height: 50vh;
+  }
+
+  .b4__box-wrapper:nth-child(3) {
+    order: 1;
   }
 }

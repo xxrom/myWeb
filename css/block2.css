@@ -19,7 +19,7 @@
 }
 
 .b2__box {
-  margin: 3em 0 3em 3em;
+  margin: 2em 0 2em 2em;
   cursor: pointer;
 }
 .b2__box:first-child {
@@ -28,7 +28,7 @@
 }
 
 .b2__box-img {
-  height: 4em;
+  height: 3em;
   padding: 1em;
 
   border: 1px #f3f3f3 solid;
