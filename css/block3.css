@@ -63,3 +63,16 @@
   font-family: 'Oswald', 'Raleway', 'Helvetica Neue', Helvetica, Arial,
     sans-serif;
 }
+
+@media (max-width: 768px) {
+  .b3__title {
+    font-size: 1.5em;
+  }
+  .b3__item {
+    flex-direction: column;
+  }
+  .b3__item-text {
+    padding-top: 0.5em;
+    font-size: 1em;
+  }
+}
