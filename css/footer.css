@@ -1,0 +1,9 @@
+.footer-text {
+  padding: 6em;
+
+  font-size: 0.8em;
+  letter-spacing: 0.2em;
+  font-weight: 200;
+  font-family: 'Oswald', 'Raleway', 'Helvetica Neue', Helvetica, Arial,
+    sans-serif;
+}
