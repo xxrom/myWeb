@@ -1,0 +1,65 @@
+.block3 {
+  display: flex;
+  flex-flow: column;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 3em;
+
+  background-color: #f4f4f4;
+
+  animation-timing-function: ease-out;
+}
+
+.b3__title {
+  font-size: 2em;
+  font-family: 'Oswald', 'Raleway', 'Helvetica Neue', Helvetica, Arial,
+    sans-serif;
+  font-weight: 100;
+  letter-spacing: 0.2em;
+}
+
+.b3__wrapper {
+  margin-top: 2em;
+
+  overflow: hidden;
+
+  width: 100%;
+}
+
+.b3__wrapper-items {
+  display: flex;
+  align-content: space-between;
+  transition-duration: 0.6s;
+  transition-timing-function: ease-out;
+}
+
+.b3__item-img {
+  height: 3em;
+  margin-right: 0.5em;
+}
+.b3__svg {
+  height: inherit;
+}
+
+.b3__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1em 0;
+  min-width: 25%;
+}
+
+.b3__item-text {
+  white-space: nowrap;
+  font-size: 1.5em;
+
+  letter-spacing: 0.1em;
+
+  font-weight: 200;
+
+  font-family: 'Oswald', 'Raleway', 'Helvetica Neue', Helvetica, Arial,
+    sans-serif;
+}

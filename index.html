@@ -9,14 +9,16 @@
 
   <link rel='stylesheet' href='./css/block1.css' />
   <link rel='stylesheet' href='./css/block2.css' />
+  <link rel='stylesheet' href='./css/block3.css' />
 </head>
 
 <body style='margin: 0'>
-  <div class=' block1 '>
+  <!-- BLOCK 1 ============================================== -->
+  <div class=' block1'>
     <img src="./src/block1/img.jpg" alt="my-main-picture" class="b1__img">
     <div class="b1__mobile-text">
       <h1 class="b1__mobile-text-title">Nikita Chernyshov</h1>
-      <p class="b1__mobile-text-description">React / Redux / JS</p>
+      <p class="b1__mobile-text-description">Software Engineer / Web Developer / Data Scientist</p>
     </div>
     <div class="b1__mobile-social">
       <div class="b1__box">
@@ -32,9 +34,10 @@
       </div>
     </div>
   </div>
+  <!-- BLOCK 2 ============================================== -->
   <div class="block2">
     <div class='b2__social-text'>
-      Repositories:
+      Repositories/mail:
     </div>
     <div class="b2__box">
       <img class='b2__box-img' onclick="window.open('https://gitlab.com/xromm', '_blank ');" src="./src/block2/gitlab.svg" alt="github icon">
@@ -46,13 +49,73 @@
       <img class='b2__box-img' onclick="parent.location='mailto:chernyshovnm@gmail.com'" src="./src/block2/gmail.svg" alt="gmail icon">
     </div>
   </div>
-
-
+  <!-- BLOCK 3 ============================================== -->
   <div class="block3">
-    <p>helsllkfasdj lkas flk</p>
+    <div class='b3__title'>
+      Skills and abilities:
+    </div>
+    <div class='b3__wrapper'>
+      <div class='b3__wrapper-items'>
+        <div class='b3__item'>
+          <div class='b3__item-img'>
+            <img class='b3__svg' src='./src/block3/js.svg
+                  ' alt='js icon'>
+          </div>
+          <div class="b3__item-text">
+            JavaScript
+          </div>
+        </div>
+        <div class='b3__item'>
+          <div class='b3__item-img'>
+            <img class='b3__svg' src='./src/block3/python.svg
+              ' alt='python icon'>
+          </div>
+          <div class="b3__item-text">
+            Python
+          </div>
+        </div>
+        <div class='b3__item'>
+          <div class='b3__item-img'>
+            <img class='b3__svg' src='./src/block3/react.svg
+                  ' alt='react icon'>
+          </div>
+          <div class="b3__item-text">
+            React
+          </div>
+        </div>
+        <div class='b3__item'>
+          <div class='b3__item-img'>
+            <img class='b3__svg' src='./src/block3/redux.svg
+                    ' alt='redux icon'>
+          </div>
+          <div class="b3__item-text">
+            Redux
+          </div>
+        </div>
+        <div class='b3__item'>
+          <div class='b3__item-img'>
+            <img class='b3__svg' src='./src/block3/react.svg
+            ' alt='machine learning icon'>
+          </div>
+          <div class="b3__item-text">
+            Machine Learning
+          </div>
+        </div>
+        <div class='b3__item'>
+          <div class='b3__item-img'>
+            <img class='b3__svg' src='./src/block3/webpack.svg
+                ' alt='webpack icon'>
+          </div>
+          <div class="b3__item-text">
+            WebPack
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <script src='./js/block1.js '></script>
+  <script src='./js/block1.js'></script>
+  <script src='./js/block3.js'></script>
 </body>
 
 </html>
