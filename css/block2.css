@@ -4,8 +4,6 @@
 
   justify-content: center;
   align-items: center;
-
-  padding: 2em;
 }
 
 .b2__social-text {
@@ -16,17 +14,17 @@
 
   font-family: 'Oswald', 'Raleway', 'Helvetica Neue', Helvetica, Arial,
     sans-serif;
-  margin-right: 1em;
 
   font-weight: 200;
 }
 
 .b2__box {
-  margin: 1em;
+  margin: 3em 0 3em 3em;
   cursor: pointer;
 }
-img:hover > svg {
-  fill: red;
+.b2__box:first-child {
+  margin: 3em;
+  background-color: red;
 }
 
 .b2__box-img {
