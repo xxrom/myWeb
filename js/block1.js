@@ -17,3 +17,9 @@ window.onscroll = function scrollImg() {
     timeId = setTimeout(calcImg, throttleTime);
   }
 };
+
+const worker = new Worker('./js/worker.js');
+worker.postMessage({ hello: 'world' });
+worker.onmessage = function (e) {
+  console.log('onMessage from worker', e);
+};
