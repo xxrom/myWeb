@@ -62,6 +62,13 @@
 }
 
 @media (max-width: 768px) {
+  .b4__work {
+    padding: 1em 1em 0 1em;
+  }
+  .b4__work-name,
+  .b4__education-enter {
+    font-size: 1.2em;
+  }
   .b4__box-wrapper {
     width: 100vw;
     height: 70vw;
@@ -69,6 +76,7 @@
   .b4__box-wrapper__mobile-text {
     width: 100vw;
     height: 50vh;
+    padding: 2em;
   }
 
   .b4__box-wrapper:nth-child(3) {
