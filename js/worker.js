@@ -3,7 +3,6 @@ const visibleItems = 4;
 let currentShift = 0;
 
 self.onmessage = function onMessage({ data }) {
-  console.log('Worker', data);
   const numberItems = data;
 
   setInterval(() => {
