@@ -44,6 +44,23 @@ function Background(numberItems) {
   };
 
   this.makeLineByTwoPoints = function makeLineByTwoPoints(one, two) {
+    // this.ctx.moveTo(one.x, one.y);
+    // this.ctx.lineTo(two.x, two.y);
+    // this.ctx.stroke();
+    const linearGradient2 = this.ctx.createLinearGradient(
+      one.x,
+      one.y,
+      two.x,
+      two.y
+    );
+    linearGradient2.addColorStop(0, 'rgba( 0, 0,   0, 0)');
+    // linearGradient2.addColorStop(0.1, 'rgba( 0, 0,   0, 0)');
+    linearGradient2.addColorStop(0.5, 'rgba(0, 0, 255, 0.2)');
+    // linearGradient2.addColorStop(0.9, 'rgba( 0, 0, 0, 0)');
+    linearGradient2.addColorStop(1, 'rgba( 0, 0, 0, 0)');
+
+    this.ctx.strokeStyle = linearGradient2;
+    this.ctx.lineWidth = 0.11;
     this.ctx.moveTo(one.x, one.y);
     this.ctx.lineTo(two.x, two.y);
     this.ctx.stroke();
