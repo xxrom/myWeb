@@ -54,9 +54,9 @@ function Background(numberItems) {
       two.y
     );
     linearGradient2.addColorStop(0, 'rgba( 0, 0,   0, 0)');
-    // linearGradient2.addColorStop(0.1, 'rgba( 0, 0,   0, 0)');
-    linearGradient2.addColorStop(0.5, 'rgba(0, 0, 255, 0.2)');
-    // linearGradient2.addColorStop(0.9, 'rgba( 0, 0, 0, 0)');
+    // linearGradient2.addColorStop(0.1, 'rgba( 0, 0, 200, 0.1)');
+    linearGradient2.addColorStop(0.5, 'rgba(0, 0, 255, 0.15)');
+    // linearGradient2.addColorStop(0.9, 'rgba( 0, 0, 200, 0.1)');
     linearGradient2.addColorStop(1, 'rgba( 0, 0, 0, 0)');
 
     this.ctx.strokeStyle = linearGradient2;
@@ -104,7 +104,7 @@ function Background(numberItems) {
       this.ctx.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
 
       this.ctx.lineWidth = 5;
-      this.ctx.strokeStyle = 'rgba(0,0,255,0.3)';
+      this.ctx.strokeStyle = 'rgba(0,0,255,0.2)';
       this.items.forEach((item, index) => {
         this.ctx.beginPath();
         this.ctx.arc(item.x, item.y, 1, 0, 2 * Math.PI);
