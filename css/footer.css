@@ -1,4 +1,5 @@
 .footer-text {
+  position: relative;
   padding: 6em;
 
   font-size: 0.8em;
@@ -8,4 +9,10 @@
     sans-serif;
 
   background-color: #fafafa;
+}
+
+.footer-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
 }

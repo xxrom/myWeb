@@ -5,28 +5,31 @@ function Background() {
   this.myCanvas = document.getElementById('myCanvas');
   console.log(this.myCanvas);
 
+  const Footer = document.getElementsByClassName('footer-text')[0];
+  console.log(Footer.offsetHeight);
+
   this.ctx = this.myCanvas.getContext('2d');
-  console.log(window.width);
 
   this.myCanvas.width = window.innerWidth;
-  this.myCanvas.height = 200;
+
+  this.myCanvas.height = Footer.offsetHeight;
 
   // this.myCanvas.style.border = '1px solid red';
 
-  this.updateTime = 30;
+  this.updateTime = 60;
   this.step = 1;
 
   this.numberItems = 10;
   this.items = [];
 
-  this.generateNewItem = function generateNewItem() {
-    return Math.random() > 0.5
+  this.generateNewItem = function generateNewItem(randomParam = 0) {
+    return Math.random() > this.myCanvas.height / this.myCanvas.width
       ? {
         x: Math.random() * this.myCanvas.width,
-        y: 0
+        y: randomParam
       }
       : {
-        x: 0,
+        x: randomParam,
         y: Math.random() * this.myCanvas.height
       };
   };
@@ -67,24 +70,26 @@ function Background() {
   this.run = function run(numberItems) {
     this.numberItems = numberItems;
     for (let i = 0; i < numberItems; i++) {
-      this.items.push(this.generateNewItem());
+      this.items.push(this.generateNewItem(Math.random() * this.myCanvas.height));
     }
 
     setInterval(() => {
+      this.myCanvas.width = window.innerWidth;
+
       this.ctx.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
 
-      this.ctx.lineWidth = 2;
-      this.ctx.strokeStyle = '#00f';
+      this.ctx.lineWidth = 5;
+      this.ctx.strokeStyle = 'rgba(0,0,255,0.3)';
       this.items.forEach((item, index) => {
         this.ctx.beginPath();
-        this.ctx.arc(item.x, item.y, 3, 0, 2 * Math.PI);
+        this.ctx.arc(item.x, item.y, 1, 0, 2 * Math.PI);
         this.ctx.stroke();
 
         this.moveItem(index);
       });
 
-      this.ctx.lineWidth = 0.1;
-      this.ctx.strokeStyle = '#000';
+      this.ctx.lineWidth = 0.05;
+      this.ctx.strokeStyle = 'rgba(0,0,0,0.08)';
 
       this.findNearItems();
     }, this.updateTime);
