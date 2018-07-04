@@ -27,6 +27,7 @@ function Background() {
 
   this.updateTime = 60;
   this.step = 1;
+  this.connectLength = 0.2 * window.innerWidth;
 
   this.numberItems = 10;
   this.items = [];
@@ -57,7 +58,7 @@ function Background() {
   this.findNearItems = function findNearItems() {
     this.items.forEach((obj) => {
       this.items.forEach((item) => {
-        if (this.calcDist(obj, item) < 70) {
+        if (this.calcDist(obj, item) < this.connectLength) {
           this.makeLineByTwoPoints(obj, item);
         }
       });
