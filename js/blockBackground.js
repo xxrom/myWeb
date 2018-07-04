@@ -6,16 +6,10 @@ function Background(numberItems) {
   console.log(this.myCanvas);
 
   const Footer = document.getElementsByClassName('footer-text')[0];
-  console.log(Footer.offsetHeight);
-  console.log(getComputedStyle(Footer).height.replace('px', ''));
-  console.log(getComputedStyle(Footer).paddingTop.replace('px', ''));
-  console.log(getComputedStyle(Footer).paddingBottom.replace('px', ''));
-
   let footerHeight =
     +getComputedStyle(Footer).height.replace('px', '') +
     +getComputedStyle(Footer).paddingTop.replace('px', '') +
     +getComputedStyle(Footer).paddingBottom.replace('px', '');
-  console.log(footerHeight);
 
   this.ctx = this.myCanvas.getContext('2d');
 
@@ -103,7 +97,7 @@ function Background(numberItems) {
       });
 
       this.ctx.lineWidth = 0.05;
-      this.ctx.strokeStyle = 'rgba(0,0,0,0.08)';
+      this.ctx.strokeStyle = 'rgba(0,0,0,0.09)';
 
       this.findNearItems();
     }, this.updateTime);
