@@ -1,5 +1,5 @@
 console.log(window.width);
-function Background() {
+function Background(numberItems) {
   console.log('test');
 
   this.myCanvas = document.getElementById('myCanvas');
@@ -27,9 +27,9 @@ function Background() {
 
   this.updateTime = 60;
   this.step = 1;
-  this.connectLength = 0.2 * window.innerWidth;
+  this.connectLength = 0.3 * window.innerWidth;
 
-  this.numberItems = 10;
+  this.numberItems = numberItems;
   this.items = [];
 
   this.generateNewItem = function generateNewItem(randomParam = 0) {
@@ -77,12 +77,11 @@ function Background() {
     }
   };
 
-  this.run = function run(numberItems) {
-    this.numberItems = numberItems;
-    for (let i = 0; i < numberItems; i++) {
+  this.run = function run() {
+    for (let i = 0; i < this.numberItems; i++) {
       this.items.push(this.generateNewItem(Math.random() * this.myCanvas.height));
     }
-
+    console.log(this.items.length);
     setInterval(() => {
       footerHeight =
         +getComputedStyle(Footer).height.replace('px', '') +
@@ -122,5 +121,5 @@ function Background() {
   // });
 }
 
-const background = new Background();
-background.run(30);
+const background = new Background(10);
+background.run();
