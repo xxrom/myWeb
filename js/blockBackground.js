@@ -11,7 +11,7 @@ function Background() {
   console.log(getComputedStyle(Footer).paddingTop.replace('px', ''));
   console.log(getComputedStyle(Footer).paddingBottom.replace('px', ''));
 
-  const footerHeight =
+  let footerHeight =
     +getComputedStyle(Footer).height.replace('px', '') +
     +getComputedStyle(Footer).paddingTop.replace('px', '') +
     +getComputedStyle(Footer).paddingBottom.replace('px', '');
@@ -84,6 +84,11 @@ function Background() {
     }
 
     setInterval(() => {
+      footerHeight =
+        +getComputedStyle(Footer).height.replace('px', '') +
+        +getComputedStyle(Footer).paddingTop.replace('px', '') +
+        +getComputedStyle(Footer).paddingBottom.replace('px', '');
+      this.myCanvas.height = footerHeight;
       this.myCanvas.width = window.innerWidth;
 
       this.ctx.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
