@@ -1,15 +1,13 @@
-console.log(window.width);
+const workerBackground = new Worker('./js/workers/background.js');
+
 function Background(numberItems) {
-  console.log('test');
-
   this.myCanvas = document.getElementById('myCanvas');
-  console.log(this.myCanvas);
 
-  const Footer = document.getElementsByClassName('footer-text')[0];
-  let footerHeight =
-    +getComputedStyle(Footer).height.replace('px', '') +
-    +getComputedStyle(Footer).paddingTop.replace('px', '') +
-    +getComputedStyle(Footer).paddingBottom.replace('px', '');
+  this.Footer = document.getElementsByClassName('footer-text')[0];
+  const footerHeight =
+    +getComputedStyle(this.Footer).height.replace('px', '') +
+    +getComputedStyle(this.Footer).paddingTop.replace('px', '') +
+    +getComputedStyle(this.Footer).paddingBottom.replace('px', '');
 
   this.ctx = this.myCanvas.getContext('2d');
 
@@ -17,14 +15,13 @@ function Background(numberItems) {
 
   this.myCanvas.height = footerHeight;
 
-  // this.myCanvas.style.border = '1px solid red';
-
   this.updateTime = 60;
-  this.step = 1;
+  this.step = 0.5;
   this.connectLength = 0.3 * window.innerWidth;
 
   this.numberItems = numberItems;
   this.items = [];
+  this.lines = [];
 
   this.generateNewItem = function generateNewItem(randomParam = 0) {
     return Math.random() > this.myCanvas.height / this.myCanvas.width
@@ -38,21 +35,11 @@ function Background(numberItems) {
       };
   };
 
-  this.calcDist = function calcDist(one, two) {
-    return Math.sqrt(Math.abs((one.x - two.x) * (one.x - two.x)) +
-        Math.abs((one.y - two.y) * (one.y - two.y)));
-  };
-
-  this.makeLineByTwoPoints = function makeLineByTwoPoints(one, two) {
+  this.makeLineByTwoPoints = function makeLineByTwoPoints(x1, y1, x2, y2) {
     // this.ctx.moveTo(one.x, one.y);
     // this.ctx.lineTo(two.x, two.y);
     // this.ctx.stroke();
-    const linearGradient2 = this.ctx.createLinearGradient(
-      one.x,
-      one.y,
-      two.x,
-      two.y
-    );
+    const linearGradient2 = this.ctx.createLinearGradient(x1, y1, x2, y2);
     linearGradient2.addColorStop(0, 'rgba( 0, 0,   0, 0)');
     // linearGradient2.addColorStop(0.1, 'rgba( 0, 0,   0, 0)');
     linearGradient2.addColorStop(0.5, 'rgba(0, 0, 255, 0.2)');
@@ -61,19 +48,9 @@ function Background(numberItems) {
 
     this.ctx.strokeStyle = linearGradient2;
     this.ctx.lineWidth = 0.11;
-    this.ctx.moveTo(one.x, one.y);
-    this.ctx.lineTo(two.x, two.y);
+    this.ctx.moveTo(x1, y1);
+    this.ctx.lineTo(x2, y2);
     this.ctx.stroke();
-  };
-
-  this.findNearItems = function findNearItems() {
-    this.items.forEach((obj) => {
-      this.items.forEach((item) => {
-        if (this.calcDist(obj, item) < this.connectLength) {
-          this.makeLineByTwoPoints(obj, item);
-        }
-      });
-    });
   };
 
   this.moveItem = function moveItem(index) {
@@ -88,23 +65,38 @@ function Background(numberItems) {
     }
   };
 
+  this.getFooterHeight = function getFooterHeight() {
+    return (
+      +getComputedStyle(this.Footer).height.replace('px', '') +
+      +getComputedStyle(this.Footer).paddingTop.replace('px', '') +
+      +getComputedStyle(this.Footer).paddingBottom.replace('px', '')
+    );
+  };
+
   this.run = function run() {
     for (let i = 0; i < this.numberItems; i++) {
       this.items.push(this.generateNewItem(Math.random() * this.myCanvas.height));
     }
-    console.log(this.items.length);
+    workerBackground.onmessage = (obj) => {
+      this.lines = obj.data.lines;
+    };
+
     setInterval(() => {
-      footerHeight =
-        +getComputedStyle(Footer).height.replace('px', '') +
-        +getComputedStyle(Footer).paddingTop.replace('px', '') +
-        +getComputedStyle(Footer).paddingBottom.replace('px', '');
-      this.myCanvas.height = footerHeight;
+      workerBackground.postMessage({
+        type: 'find',
+        payload: {
+          items: this.items,
+          connectLength: this.connectLength
+        }
+      });
+
+      this.myCanvas.height = this.getFooterHeight();
       this.myCanvas.width = window.innerWidth;
 
       this.ctx.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
 
       this.ctx.lineWidth = 5;
-      this.ctx.strokeStyle = 'rgba(0,0,255,0.3)';
+      this.ctx.strokeStyle = 'rgba(0,0,255,0.2)';
       this.items.forEach((item, index) => {
         this.ctx.beginPath();
         this.ctx.arc(item.x, item.y, 1, 0, 2 * Math.PI);
@@ -115,22 +107,18 @@ function Background(numberItems) {
 
       this.ctx.lineWidth = 0.05;
       this.ctx.strokeStyle = 'rgba(0,0,0,0.09)';
-
-      this.findNearItems();
+      this.lines.forEach(item =>
+        this.makeLineByTwoPoints(item.x1, item.y1, item.x2, item.y2));
     }, this.updateTime);
   };
-
-  // myCanvas.addEventListener('mousemove', (e) => {
-  //   const bounds = myCanvas.getBoundingClientRect();
-  //   const mx = e.clientX - bounds.left;
-  //   const my = e.clientY - bounds.top;
-  //   console.log(`${mx} ${my}`);
-
-  //   ctx.beginPath();
-  //   ctx.arc(mx, my, 10, 0, 2 * Math.PI);
-  //   ctx.stroke();
-  // });
 }
 
 const background = new Background(10);
+// 50 N*N 300 +-
+// 50 1/2*N*N 150 +-
 background.run();
+
+// worker.postMessage(items.length);
+// worker.onmessage = function ({ data }) {
+//   wrapper.style.transform = `translate(-${data}%)`;
+// };
