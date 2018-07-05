@@ -71,7 +71,6 @@
     font-size: 1.2em;
   }
   .b4__box-wrapper {
-    flex: 0;
     min-width: 95vw;
     width: 100vw;
     height: 70vw;
