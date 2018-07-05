@@ -10,7 +10,9 @@
 }
 
 .b4__box-wrapper {
-  width: 50vw;
+  min-width: 45vw;
+  max-width: 50vw;
+  width: 100%;
   height: 50vw;
 
   display: flex;
