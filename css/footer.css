@@ -1,11 +1,18 @@
 .footer-text {
-  padding: 6em;
+  position: relative;
+  padding: 9em 0 3em 3em;
 
   font-size: 0.8em;
   letter-spacing: 0.2em;
-  font-weight: 200;
+  font-weight: 300;
   font-family: 'Oswald', 'Raleway', 'Helvetica Neue', Helvetica, Arial,
     sans-serif;
 
   background-color: #fafafa;
+}
+
+.footer-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
