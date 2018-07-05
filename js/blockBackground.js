@@ -1,32 +1,39 @@
 console.log(window.width);
-function Background() {
+function Background(numberItems) {
   console.log('test');
 
   this.myCanvas = document.getElementById('myCanvas');
   console.log(this.myCanvas);
 
+  const Footer = document.getElementsByClassName('footer-text')[0];
+  let footerHeight =
+    +getComputedStyle(Footer).height.replace('px', '') +
+    +getComputedStyle(Footer).paddingTop.replace('px', '') +
+    +getComputedStyle(Footer).paddingBottom.replace('px', '');
+
   this.ctx = this.myCanvas.getContext('2d');
-  console.log(window.width);
 
   this.myCanvas.width = window.innerWidth;
-  this.myCanvas.height = 200;
+
+  this.myCanvas.height = footerHeight;
 
   // this.myCanvas.style.border = '1px solid red';
 
-  this.updateTime = 30;
+  this.updateTime = 60;
   this.step = 1;
+  this.connectLength = 0.3 * window.innerWidth;
 
-  this.numberItems = 10;
+  this.numberItems = numberItems;
   this.items = [];
 
-  this.generateNewItem = function generateNewItem() {
-    return Math.random() > 0.5
+  this.generateNewItem = function generateNewItem(randomParam = 0) {
+    return Math.random() > this.myCanvas.height / this.myCanvas.width
       ? {
         x: Math.random() * this.myCanvas.width,
-        y: 0
+        y: randomParam
       }
       : {
-        x: 0,
+        x: randomParam,
         y: Math.random() * this.myCanvas.height
       };
   };
@@ -37,6 +44,23 @@ function Background() {
   };
 
   this.makeLineByTwoPoints = function makeLineByTwoPoints(one, two) {
+    // this.ctx.moveTo(one.x, one.y);
+    // this.ctx.lineTo(two.x, two.y);
+    // this.ctx.stroke();
+    const linearGradient2 = this.ctx.createLinearGradient(
+      one.x,
+      one.y,
+      two.x,
+      two.y
+    );
+    linearGradient2.addColorStop(0, 'rgba( 0, 0,   0, 0)');
+    // linearGradient2.addColorStop(0.1, 'rgba( 0, 0, 200, 0.1)');
+    linearGradient2.addColorStop(0.5, 'rgba(0, 0, 255, 0.15)');
+    // linearGradient2.addColorStop(0.9, 'rgba( 0, 0, 200, 0.1)');
+    linearGradient2.addColorStop(1, 'rgba( 0, 0, 0, 0)');
+
+    this.ctx.strokeStyle = linearGradient2;
+    this.ctx.lineWidth = 0.11;
     this.ctx.moveTo(one.x, one.y);
     this.ctx.lineTo(two.x, two.y);
     this.ctx.stroke();
@@ -45,7 +69,7 @@ function Background() {
   this.findNearItems = function findNearItems() {
     this.items.forEach((obj) => {
       this.items.forEach((item) => {
-        if (this.calcDist(obj, item) < 70) {
+        if (this.calcDist(obj, item) < this.connectLength) {
           this.makeLineByTwoPoints(obj, item);
         }
       });
@@ -64,27 +88,33 @@ function Background() {
     }
   };
 
-  this.run = function run(numberItems) {
-    this.numberItems = numberItems;
-    for (let i = 0; i < numberItems; i++) {
-      this.items.push(this.generateNewItem());
+  this.run = function run() {
+    for (let i = 0; i < this.numberItems; i++) {
+      this.items.push(this.generateNewItem(Math.random() * this.myCanvas.height));
     }
-
+    console.log(this.items.length);
     setInterval(() => {
+      footerHeight =
+        +getComputedStyle(Footer).height.replace('px', '') +
+        +getComputedStyle(Footer).paddingTop.replace('px', '') +
+        +getComputedStyle(Footer).paddingBottom.replace('px', '');
+      this.myCanvas.height = footerHeight;
+      this.myCanvas.width = window.innerWidth;
+
       this.ctx.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
 
-      this.ctx.lineWidth = 2;
-      this.ctx.strokeStyle = '#00f';
+      this.ctx.lineWidth = 5;
+      this.ctx.strokeStyle = 'rgba(0,0,255,0.2)';
       this.items.forEach((item, index) => {
         this.ctx.beginPath();
-        this.ctx.arc(item.x, item.y, 3, 0, 2 * Math.PI);
+        this.ctx.arc(item.x, item.y, 1, 0, 2 * Math.PI);
         this.ctx.stroke();
 
         this.moveItem(index);
       });
 
-      this.ctx.lineWidth = 0.1;
-      this.ctx.strokeStyle = '#000';
+      this.ctx.lineWidth = 0.05;
+      this.ctx.strokeStyle = 'rgba(0,0,0,0.09)';
 
       this.findNearItems();
     }, this.updateTime);
@@ -102,5 +132,5 @@ function Background() {
   // });
 }
 
-const background = new Background();
-background.run(30);
+const background = new Background(10);
+background.run();
