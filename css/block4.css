@@ -12,8 +12,9 @@
 }
 
 .b4__box-wrapper {
-  width: 50vw;
+  min-width: 45vw;
   height: 50vw;
+  flex: 1;
 
   display: flex;
   align-items: center;
@@ -27,7 +28,7 @@
 }
 .b4__photo {
   width: 100%;
-  min-height: 50vw;
+  ``min-height: 50vw;
 }
 
 .b4__name,
@@ -72,6 +73,7 @@
     font-size: 1.2em;
   }
   .b4__box-wrapper {
+    min-width: 95vw;
     width: 100vw;
     height: 70vw;
   }

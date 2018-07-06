@@ -35,7 +35,7 @@ function Background(numberItems) {
     linearGradient.addColorStop(0.5, 'rgba(0, 0, 255, 0.4)');
     linearGradient.addColorStop(1, 'rgba( 0, 0, 0, 0)');
 
-    this.ctx.strokeStyle = linearGradient;
+    this.ctx.strokeStyle = linearGradient; 
     this.ctx.lineWidth = 0.11;
     this.ctx.moveTo(x1, y1);
     this.ctx.lineTo(x2, y2);
