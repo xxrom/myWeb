@@ -28,7 +28,7 @@ function findNearItems({
   let x = 0;
   let y = 0;
 
-  for (let i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i += 1) {
     x = items[i].x + step;
     y = items[i].y + step;
 
@@ -41,8 +41,8 @@ function findNearItems({
 
   let one;
   let two;
-  for (let i = 0; i < newItems.length; i++) {
-    for (let j = i + 1; j < newItems.length; j++) {
+  for (let i = 0; i < newItems.length; i += 1) {
+    for (let j = i + 1; j < newItems.length; j += 1) {
       one = newItems[i];
       two = newItems[j];
 
