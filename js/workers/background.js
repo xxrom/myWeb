@@ -3,17 +3,51 @@ function calcDist(one, two) {
       Math.abs((one.y - two.y) * (one.y - two.y)));
 }
 
-function findNearItems(items, connectLength) {
-  const ans = [];
+function generateNewItem(canvasWidth, canvasHeight, randomParam = 0) {
+  return Math.random() > canvasHeight / canvasWidth
+    ? {
+      x: Math.random() * canvasWidth,
+      y: randomParam
+    }
+    : {
+      x: randomParam,
+      y: Math.random() * canvasHeight
+    };
+}
+
+function findNearItems({
+  items,
+  connectLength,
+  step,
+  canvasHeight,
+  canvasWidth
+}) {
+  const lines = [];
+  const newItems = [];
+
+  let x = 0;
+  let y = 0;
+
+  for (let i = 0; i < items.length; i += 1) {
+    x = items[i].x + step;
+    y = items[i].y + step;
+
+    if (x > canvasWidth || y > canvasHeight) {
+      newItems.push(generateNewItem(canvasWidth, canvasHeight));
+    } else {
+      newItems.push({ x, y });
+    }
+  }
+
   let one;
   let two;
-  for (let i = 0; i < items.length; i++) {
-    for (let j = i + 1; j < items.length; j++) {
-      one = items[i];
-      two = items[j];
+  for (let i = 0; i < newItems.length; i += 1) {
+    for (let j = i + 1; j < newItems.length; j += 1) {
+      one = newItems[i];
+      two = newItems[j];
 
       if (calcDist(one, two) < connectLength) {
-        ans.push({
+        lines.push({
           x1: one.x,
           y1: one.y,
           x2: two.x,
@@ -22,27 +56,23 @@ function findNearItems(items, connectLength) {
       }
     }
   }
-  return ans;
+  return {
+    lines,
+    items: newItems
+  };
 }
 
 self.onmessage = function onMessage(props) {
   const { type, payload } = props.data;
   switch (type) {
-    case 'move': {
-      console.log('W move');
-      this.postMessage(['test']);
-      break;
-    }
     case 'find': {
-      const { items, connectLength } = payload;
-      const lines = findNearItems(items, connectLength);
-      this.postMessage({
-        lines
-      });
+      const ansObj = findNearItems(payload);
+      this.postMessage(ansObj);
       break;
     }
     default: {
       console.log('W default');
+      this.postMessage(props.data);
       break;
     }
   }
