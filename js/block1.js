@@ -1,19 +1,19 @@
-const throttleTime = 30;
 const mainImg = document.getElementsByClassName('b1__img')[0];
-let timeId;
 
-function calcImg() {
-  const top = Math.round(window.pageYOffset * 0.6);
-  mainImg.style.top = `${top}px`;
+function scrollImg() {
+  if (window.pageYOffset > window.innerHeight) {
+    mainImg.style.display = 'none';
+    return;
+  }
+  mainImg.style.display = 'block';
 
-  timeId = undefined;
+  // const doc = document.documentElement;
+  // const top =
+  //   0.6 * ((window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0));
+
+  // mainImg.style.transform = `translate(0, ${top}px)`;
 }
 
-window.onscroll = function scrollImg() {
-  if (
-    typeof timeId === 'undefined' &&
-    window.pageYOffset < window.innerHeight
-  ) {
-    timeId = setTimeout(calcImg, throttleTime);
-  }
-};
+scrollImg();
+
+window.onscroll = scrollImg;

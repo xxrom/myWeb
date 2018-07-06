@@ -13,11 +13,12 @@
 }
 
 .b1__img {
-  position: absolute;
+  position: fixed;
   height: auto;
   top: 0;
   min-height: 100vh;
   min-width: 100vw;
+  z-index: -1;
 }
 
 .b1__mobile-text {
