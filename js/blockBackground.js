@@ -23,6 +23,13 @@ function Background(numberItems) {
   this.items = [];
   this.lines = [];
 
+  this.linearGradient = this.ctx.createLinearGradient(0, 0, 1, 1);
+  this.linearGradient.addColorStop(0, 'rgba( 0, 0,   0, 0)');
+  // linearGradient2.addColorStop(0.1, 'rgba( 0, 0,   0, 0)');
+  this.linearGradient.addColorStop(0.5, 'rgba(0, 0, 255, 0.25)');
+  // linearGradient2.addColorStop(0.9, 'rgba( 0, 0, 0, 0)');
+  this.linearGradient.addColorStop(1, 'rgba( 0, 0, 0, 0)');
+
   this.generateNewItem = function generateNewItem(randomParam = 0) {
     return Math.random() > this.myCanvas.height / this.myCanvas.width
       ? {
@@ -36,14 +43,9 @@ function Background(numberItems) {
   };
 
   this.makeLineByTwoPoints = function makeLineByTwoPoints(x1, y1, x2, y2) {
-    // this.ctx.moveTo(one.x, one.y);
-    // this.ctx.lineTo(two.x, two.y);
-    // this.ctx.stroke();
     const linearGradient2 = this.ctx.createLinearGradient(x1, y1, x2, y2);
     linearGradient2.addColorStop(0, 'rgba( 0, 0,   0, 0)');
-    // linearGradient2.addColorStop(0.1, 'rgba( 0, 0,   0, 0)');
-    linearGradient2.addColorStop(0.5, 'rgba(0, 0, 255, 0.2)');
-    // linearGradient2.addColorStop(0.9, 'rgba( 0, 0, 0, 0)');
+    linearGradient2.addColorStop(0.5, 'rgba(0, 0, 255, 0.4)');
     linearGradient2.addColorStop(1, 'rgba( 0, 0, 0, 0)');
 
     this.ctx.strokeStyle = linearGradient2;
@@ -53,17 +55,17 @@ function Background(numberItems) {
     this.ctx.stroke();
   };
 
-  this.moveItem = function moveItem(index) {
-    this.items[index].x += this.step;
-    this.items[index].y += this.step;
+  // this.moveItem = function moveItem(index) {
+  //   this.items[index].x += this.step;
+  //   this.items[index].y += this.step;
 
-    if (
-      this.items[index].x > this.myCanvas.width ||
-      this.items[index].y > this.myCanvas.height
-    ) {
-      this.items[index] = this.generateNewItem();
-    }
-  };
+  //   if (
+  //     this.items[index].x > this.myCanvas.width ||
+  //     this.items[index].y > this.myCanvas.height
+  //   ) {
+  //     this.items[index] = this.generateNewItem();
+  //   }
+  // };
 
   this.getFooterHeight = function getFooterHeight() {
     return (
@@ -79,6 +81,7 @@ function Background(numberItems) {
     }
     workerBackground.onmessage = (obj) => {
       this.lines = obj.data.lines;
+      this.items = obj.data.items;
     };
 
     setInterval(() => {
@@ -86,7 +89,10 @@ function Background(numberItems) {
         type: 'find',
         payload: {
           items: this.items,
-          connectLength: this.connectLength
+          connectLength: this.connectLength,
+          canvasHeight: this.myCanvas.height,
+          canvasWidth: this.myCanvas.width,
+          step: this.step
         }
       });
 
@@ -96,17 +102,13 @@ function Background(numberItems) {
       this.ctx.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
 
       this.ctx.lineWidth = 5;
-      this.ctx.strokeStyle = 'rgba(0,0,255,0.2)';
-      this.items.forEach((item, index) => {
+      this.ctx.strokeStyle = 'rgba(0,0,255,0.1)';
+      this.items.forEach((item) => {
         this.ctx.beginPath();
         this.ctx.arc(item.x, item.y, 1, 0, 2 * Math.PI);
         this.ctx.stroke();
-
-        this.moveItem(index);
       });
 
-      this.ctx.lineWidth = 0.05;
-      this.ctx.strokeStyle = 'rgba(0,0,0,0.09)';
       this.lines.forEach(item =>
         this.makeLineByTwoPoints(item.x1, item.y1, item.x2, item.y2));
     }, this.updateTime);
@@ -117,8 +119,3 @@ const background = new Background(10);
 // 50 N*N 300 +-
 // 50 1/2*N*N 150 +-
 background.run();
-
-// worker.postMessage(items.length);
-// worker.onmessage = function ({ data }) {
-//   wrapper.style.transform = `translate(-${data}%)`;
-// };
