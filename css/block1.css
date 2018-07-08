@@ -12,6 +12,12 @@
     sans-serif;
 }
 
+.b1__picture {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
 .b1__img {
   position: fixed;
   height: auto;
