@@ -1,0 +1,13 @@
+.block5 {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.b5__img {
+  height: 50vw;
+  min-height: 400px;
+  min-width: 100vw;
+}

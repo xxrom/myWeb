@@ -32,10 +32,10 @@ function Background(numberItems) {
   this.makeLineByTwoPoints = function makeLineByTwoPoints(x1, y1, x2, y2) {
     const linearGradient = this.ctx.createLinearGradient(x1, y1, x2, y2);
     linearGradient.addColorStop(0, 'rgba( 0, 0,   0, 0)');
-    linearGradient.addColorStop(0.5, 'rgba(0, 0, 255, 0.4)');
+    linearGradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.7)');
     linearGradient.addColorStop(1, 'rgba( 0, 0, 0, 0)');
 
-    this.ctx.strokeStyle = linearGradient; 
+    this.ctx.strokeStyle = linearGradient;
     this.ctx.lineWidth = 0.11;
     this.ctx.moveTo(x1, y1);
     this.ctx.lineTo(x2, y2);
@@ -78,7 +78,7 @@ function Background(numberItems) {
       this.ctx.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
 
       this.ctx.lineWidth = 5;
-      this.ctx.strokeStyle = 'rgba(0,0,255,0.1)';
+      this.ctx.strokeStyle = 'rgba(255,0,0,0.6)';
       this.items.forEach((item) => {
         this.ctx.beginPath();
         this.ctx.arc(item.x, item.y, 1, 0, 2 * Math.PI);
