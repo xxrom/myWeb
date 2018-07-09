@@ -4,9 +4,21 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+
+  max-height: 700px;
 }
 
 .b5__img {
   height: 50vw;
+
   min-height: 400px;
+  min-width: 100vw;
+
+  object-fit: cover;
+}
+
+@media (min-width: 1200px) {
+  .b5__img {
+    margin-top: -65px;
+  }
 }

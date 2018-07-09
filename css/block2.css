@@ -10,7 +10,7 @@
 .b2__social-text {
   font-size: 2em;
 
-  letter-spacing: 0.2em;
+  letter-spacing: 0.4rem;
   /* text-decoration: underline; */
 
   font-family: 'Oswald', 'Raleway', 'Helvetica Neue', Helvetica, Arial,
@@ -20,17 +20,17 @@
 }
 
 .b2__box {
-  margin: 2em 0 2em 2em;
+  margin: 4rem 0 4rem 4rem;
   cursor: pointer;
 }
 .b2__box:first-child {
-  margin: 3em;
+  margin: 3rem;
   background-color: red;
 }
 
 .b2__box-img {
-  height: 3em;
-  padding: 1em;
+  height: 3rem;
+  padding: 1.5rem;
 
   border: 1px #f3f3f3 solid;
 }

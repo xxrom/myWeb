@@ -6,7 +6,7 @@
 
   font-family: 'Oswald', 'Raleway', 'Helvetica Neue', Helvetica, Arial,
     sans-serif;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.2rem;
 
   background-color: white;
 }
@@ -28,7 +28,7 @@
 }
 .b4__photo {
   width: 100%;
-  ``min-height: 50vw;
+  min-height: 50vw;
 }
 
 .b4__name,
@@ -46,7 +46,7 @@
   align-items: center;
   align-content: space-around;
 
-  padding: 3em 3em 0 3em;
+  padding: 4rem 4rem 0 4rem;
 
   font-weight: 200;
 }
@@ -59,14 +59,10 @@
 .b4__work-palace {
   list-style-type: none;
 }
-.b4__work {
-  display: flex;
-  flex-flow: row;
-}
 
 @media (max-width: 768px) {
   .b4__work {
-    padding: 1em 1em 0 1em;
+    padding: 4rem 4rem 0 4rem;
   }
   .b4__work-name,
   .b4__education-enter {
@@ -80,8 +76,8 @@
   .b4__box-wrapper__mobile-text {
     width: 100vw;
     height: 50vw;
-    min-height: 300px;
-    padding: 2em;
+    min-height: 400px;
+    padding: 4rem;
   }
 
   .b4__box-wrapper:nth-child(3) {
