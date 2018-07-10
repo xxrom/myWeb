@@ -9,8 +9,8 @@ function Background(numberItems) {
   this.myCanvas.width = window.innerWidth;
   this.myCanvas.height = getFooterHeight.call(this);
 
-  this.updateTime = 30;
-  this.step = 0.2;
+  this.updateTime = 60;
+  this.step = 0.5;
   this.connectLength = 0.3 * window.innerWidth;
 
   this.numberItems = numberItems;
@@ -49,34 +49,33 @@ function Background(numberItems) {
       +getComputedStyle(this.Footer).paddingBottom.replace('px', '')
     );
   }
-  this.getFooterHeight = getFooterHeight;
+  this.getFooterHeight = getFooterHeight.bind(this);
+
+  this.draw = () => {
+    this.myCanvas.height = this.getFooterHeight();
+    this.myCanvas.width = window.innerWidth;
+
+    this.ctx.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
+
+    this.ctx.lineWidth = 5;
+    this.ctx.strokeStyle = 'rgba(255,0,0,0.6)';
+    this.items.forEach((item) => {
+      this.ctx.beginPath();
+      this.ctx.arc(item.x, item.y, 1, 0, 2 * Math.PI);
+      this.ctx.stroke();
+    });
+
+    this.lines.forEach(item =>
+      this.makeLineByTwoPoints(item.x1, item.y1, item.x2, item.y2));
+  };
 
   this.run = function run() {
     for (let i = 0; i < this.numberItems; i += 1) {
       this.items.push(this.generateNewItem(Math.random() * this.myCanvas.height));
     }
-    // for mouse cursor new Item
-    this.items.push({
-      x: 10,
-      y: 10
-    });
     workerBackground.onmessage = (obj) => {
       this.lines = obj.data.lines;
       this.items = obj.data.items;
-    };
-
-    this.myCanvas.onmousemove = (event) => {
-      console.log(event.pageX);
-      console.log(event.pageY);
-      console.log(event.clientX);
-      console.log(event.clientY);
-      const rect = this.myCanvas.getBoundingClientRect();
-      console.log(rect.top);
-      console.log(`len ${this.items.length}`);
-      this.items[this.items.length - 1] = {
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top
-      };
     };
 
     setInterval(() => {
@@ -85,28 +84,15 @@ function Background(numberItems) {
         payload: {
           items: this.items,
           connectLength: this.connectLength,
-          canvasHeight: this.myCanvas.height,
-          canvasWidth: this.myCanvas.width,
           step: this.step,
-          numberItems: this.numberItems
+          canvasHeight: this.myCanvas.height,
+          canvasWidth: this.myCanvas.width
         }
       });
 
-      this.myCanvas.height = this.getFooterHeight();
-      this.myCanvas.width = window.innerWidth;
+      this.connectLength = 0.3 * window.innerWidth;
 
-      this.ctx.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
-
-      this.ctx.lineWidth = 5;
-      this.ctx.strokeStyle = 'rgba(255,0,0,0.6)';
-      this.items.forEach((item) => {
-        this.ctx.beginPath();
-        this.ctx.arc(item.x, item.y, 1, 0, 2 * Math.PI);
-        this.ctx.stroke();
-      });
-
-      this.lines.forEach(item =>
-        this.makeLineByTwoPoints(item.x1, item.y1, item.x2, item.y2));
+      this.draw();
     }, this.updateTime);
   };
 }
