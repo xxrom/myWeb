@@ -45,8 +45,10 @@
 
   background-color: rgba(0, 0, 0, 0.3);
 }
+
 .b1__mobile-text-title {
-  font-size: 4em;
+  /* minFont + (MaxFont - MinFont) * (100VW - minSize) / (maxSize - minSize) */
+  font-size: calc(24px + (72 - 24) * (100vw - 400px) / (1600 - 400));
 
   letter-spacing: 0.6rem;
 
@@ -54,7 +56,7 @@
   font-weight: 100;
 }
 .b1__mobile-text-description {
-  font-size: 0.8em;
+  font-size: calc(16px + (20 - 16) * (100vw - 400px) / (1600 - 400));
   letter-spacing: 0.1rem;
 }
 
@@ -62,22 +64,12 @@
   display: none;
 }
 
-@media (max-width: 1200px) {
-  .b1__mobile-text-title {
-    font-size: 3em;
-  }
-}
-
 @media (max-width: 768px) {
   .b1__mobile-text {
     justify-content: flex-start;
   }
   .b1__mobile-text-title {
-    font-size: 2em;
     padding-top: 6rem;
-  }
-  .b1__mobile-text-description {
-    font-size: 1rem;
   }
 
   .b1__mobile-social {

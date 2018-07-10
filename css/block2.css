@@ -11,7 +11,6 @@
   font-size: 2em;
 
   letter-spacing: 0.4rem;
-  /* text-decoration: underline; */
 
   font-family: 'Oswald', 'Raleway', 'Helvetica Neue', Helvetica, Arial,
     sans-serif;
@@ -20,17 +19,13 @@
 }
 
 .b2__box {
-  margin: 4rem 0 4rem 4rem;
+  margin: 3rem 0 3rem 3rem;
   cursor: pointer;
-}
-.b2__box:first-child {
-  margin: 3rem;
-  background-color: red;
 }
 
 .b2__box-img {
   height: 3rem;
-  padding: 1.5rem;
+  padding: 1rem;
 
   border: 1px #f3f3f3 solid;
 }
