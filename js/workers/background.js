@@ -20,7 +20,8 @@ function findNearItems({
   connectLength,
   step,
   canvasHeight,
-  canvasWidth
+  canvasWidth,
+  numberItems
 }) {
   const lines = [];
   const newItems = [];
@@ -28,7 +29,7 @@ function findNearItems({
   let x = 0;
   let y = 0;
 
-  for (let i = 0; i < items.length; i += 1) {
+  for (let i = 0; i < numberItems; i += 1) {
     x = items[i].x + step;
     y = items[i].y + step;
 
@@ -37,6 +38,10 @@ function findNearItems({
     } else {
       newItems.push({ x, y });
     }
+  }
+  // для обработки позиции мышки
+  for (let i = newItems.length; i < items.length; i++) {
+    newItems.push(items[i]);
   }
 
   let one;

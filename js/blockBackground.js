@@ -9,8 +9,8 @@ function Background(numberItems) {
   this.myCanvas.width = window.innerWidth;
   this.myCanvas.height = getFooterHeight.call(this);
 
-  this.updateTime = 60;
-  this.step = 0.5;
+  this.updateTime = 30;
+  this.step = 0.2;
   this.connectLength = 0.3 * window.innerWidth;
 
   this.numberItems = numberItems;
@@ -55,9 +55,28 @@ function Background(numberItems) {
     for (let i = 0; i < this.numberItems; i += 1) {
       this.items.push(this.generateNewItem(Math.random() * this.myCanvas.height));
     }
+    // for mouse cursor new Item
+    this.items.push({
+      x: 10,
+      y: 10
+    });
     workerBackground.onmessage = (obj) => {
       this.lines = obj.data.lines;
       this.items = obj.data.items;
+    };
+
+    this.myCanvas.onmousemove = (event) => {
+      console.log(event.pageX);
+      console.log(event.pageY);
+      console.log(event.clientX);
+      console.log(event.clientY);
+      const rect = this.myCanvas.getBoundingClientRect();
+      console.log(rect.top);
+      console.log(`len ${this.items.length}`);
+      this.items[this.items.length - 1] = {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+      };
     };
 
     setInterval(() => {
@@ -68,7 +87,8 @@ function Background(numberItems) {
           connectLength: this.connectLength,
           canvasHeight: this.myCanvas.height,
           canvasWidth: this.myCanvas.width,
-          step: this.step
+          step: this.step,
+          numberItems: this.numberItems
         }
       });
 
