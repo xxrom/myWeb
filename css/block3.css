@@ -35,7 +35,7 @@
 
 .b3__item-img {
   height: 3rem;
-  margin-right: 0.5rem;
+  margin-right: 0.7rem;
 }
 .b3__svg {
   height: inherit;
@@ -77,5 +77,11 @@
     padding-top: 1rem;
     letter-spacing: 0.1rem;
     font-size: 0.9em;
+  }
+}
+
+@media (max-width: 1024px) {
+  .b3__item-text {
+    font-size: 1.2em;
   }
 }

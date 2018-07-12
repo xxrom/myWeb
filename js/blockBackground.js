@@ -64,7 +64,7 @@ function Background(numberItems) {
     this.ctx.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
 
     this.ctx.lineWidth = 5;
-    this.ctx.strokeStyle = 'rgba(255,0,0,0.4)';
+    this.ctx.strokeStyle = 'rgba(255,0,0,0.8)';
     this.items.forEach((item) => {
       this.ctx.beginPath();
       this.ctx.arc(item.x, item.y, 1, 0, 2 * Math.PI);
@@ -115,4 +115,5 @@ const background = new Background(10);
 // time ms
 // 50 N*N 300 +-
 // 50 1/2*N*N 150 +-
+// 50 with workers 70 +-
 background.run();
