@@ -1,3 +1,6 @@
+// TODO: размер б3 иконок >= чем б2 иконки
+// TODO: аваскрипт
+
 const workerBackground = new Worker('./js/workers/background.js');
 
 function Background(numberItems) {
@@ -21,11 +24,13 @@ function Background(numberItems) {
     return Math.random() > this.myCanvas.height / this.myCanvas.width
       ? {
         x: Math.random() * this.myCanvas.width,
-        y: randomParam
+        y: randomParam,
+        step: 0.1 + Math.random() * 0.4
       }
       : {
         x: randomParam,
-        y: Math.random() * this.myCanvas.height
+        y: Math.random() * this.myCanvas.height,
+        step: 0.1 + Math.random() * 0.4
       };
   };
 
@@ -79,6 +84,8 @@ function Background(numberItems) {
     };
 
     setInterval(() => {
+      this.connectLength = 0.3 * window.innerWidth;
+
       workerBackground.postMessage({
         type: 'find',
         payload: {
@@ -89,8 +96,6 @@ function Background(numberItems) {
           canvasWidth: this.myCanvas.width
         }
       });
-
-      this.connectLength = 0.3 * window.innerWidth;
 
       this.draw();
     }, this.updateTime);

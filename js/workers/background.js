@@ -7,11 +7,13 @@ function generateNewItem(canvasWidth, canvasHeight, randomParam = 0) {
   return Math.random() > canvasHeight / canvasWidth
     ? {
       x: Math.random() * canvasWidth,
-      y: randomParam
+      y: randomParam,
+      step: 0.1 + Math.random() * 0.9
     }
     : {
       x: randomParam,
-      y: Math.random() * canvasHeight
+      y: Math.random() * canvasHeight,
+      step: 0.1 + Math.random() * 0.9
     };
 }
 
@@ -29,13 +31,13 @@ function findNearItems({
   let y = 0;
 
   for (let i = 0; i < items.length; i += 1) {
-    x = items[i].x + step;
-    y = items[i].y + step;
+    x = items[i].x + items[i].step;
+    y = items[i].y + items[i].step;
 
     if (x > canvasWidth || y > canvasHeight) {
       newItems.push(generateNewItem(canvasWidth, canvasHeight));
     } else {
-      newItems.push({ x, y });
+      newItems.push({ x, y, step: items[i].step });
     }
   }
 
