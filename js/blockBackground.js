@@ -1,5 +1,4 @@
 // TODO: размер б3 иконок >= чем б2 иконки
-// TODO: аваскрипт
 
 const workerBackground = new Worker('./js/workers/background.js');
 
@@ -13,7 +12,7 @@ function Background(numberItems) {
   this.myCanvas.height = getFooterHeight.call(this);
 
   this.updateTime = 60;
-  this.step = 0.5;
+  this.hideDistance = 5;
   this.connectLength = 0.3 * window.innerWidth;
 
   this.numberItems = numberItems;
@@ -23,21 +22,23 @@ function Background(numberItems) {
   this.generateNewItem = function generateNewItem(randomParam = 0) {
     return Math.random() > this.myCanvas.height / this.myCanvas.width
       ? {
-        x: Math.random() * this.myCanvas.width,
-        y: randomParam,
-        step: 0.1 + Math.random() * 0.4
-      }
+          x: Math.random() * this.myCanvas.width,
+          y: randomParam,
+          step: 0.5 + Math.random() * 0.5,
+          degree: Math.random() * 180,
+        }
       : {
-        x: randomParam,
-        y: Math.random() * this.myCanvas.height,
-        step: 0.1 + Math.random() * 0.4
-      };
+          x: randomParam,
+          y: Math.random() * this.myCanvas.height,
+          step: 0.5 + Math.random() * 0.5,
+          degree: Math.random() * 180,
+        };
   };
 
   this.makeLineByTwoPoints = function makeLineByTwoPoints(x1, y1, x2, y2) {
     const linearGradient = this.ctx.createLinearGradient(x1, y1, x2, y2);
     linearGradient.addColorStop(0, 'rgba( 0, 0,   0, 0)');
-    linearGradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.7)');
+    linearGradient.addColorStop(0.5, 'rgba(255, 0, 0, 0.6)');
     linearGradient.addColorStop(1, 'rgba( 0, 0, 0, 0)');
 
     this.ctx.strokeStyle = linearGradient;
@@ -63,20 +64,23 @@ function Background(numberItems) {
     this.ctx.clearRect(0, 0, this.myCanvas.width, this.myCanvas.height);
 
     this.ctx.lineWidth = 5;
-    this.ctx.strokeStyle = 'rgba(255,0,0,0.6)';
+    this.ctx.strokeStyle = 'rgba(255,0,0,0.4)';
     this.items.forEach((item) => {
       this.ctx.beginPath();
       this.ctx.arc(item.x, item.y, 1, 0, 2 * Math.PI);
       this.ctx.stroke();
     });
 
-    this.lines.forEach(item =>
-      this.makeLineByTwoPoints(item.x1, item.y1, item.x2, item.y2));
+    this.lines.forEach((item) =>
+      this.makeLineByTwoPoints(item.x1, item.y1, item.x2, item.y2)
+    );
   };
 
   this.run = function run() {
     for (let i = 0; i < this.numberItems; i += 1) {
-      this.items.push(this.generateNewItem(Math.random() * this.myCanvas.height));
+      this.items.push(
+        this.generateNewItem(Math.random() * this.myCanvas.height)
+      );
     }
     workerBackground.onmessage = (obj) => {
       this.lines = obj.data.lines;
@@ -84,6 +88,11 @@ function Background(numberItems) {
     };
 
     setInterval(() => {
+      if (this.Footer.getBoundingClientRect().top > window.innerHeight) {
+        // if hidden footer
+        return;
+      }
+
       this.connectLength = 0.3 * window.innerWidth;
 
       workerBackground.postMessage({
@@ -91,10 +100,10 @@ function Background(numberItems) {
         payload: {
           items: this.items,
           connectLength: this.connectLength,
-          step: this.step,
           canvasHeight: this.myCanvas.height,
-          canvasWidth: this.myCanvas.width
-        }
+          canvasWidth: this.myCanvas.width,
+          hideDistance: this.hideDistance,
+        },
       });
 
       this.draw();

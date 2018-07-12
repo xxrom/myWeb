@@ -32,7 +32,6 @@ function parallax(item, coefficient) {
 function changeHeight(item, coefficient, current, maxHeight) {
   if (Math.abs(current - maxHeight) > coefficient * current) {
     block.style.height = `${maxHeight}px`;
-    console.log('resize');
   }
 }
 

@@ -1,43 +1,100 @@
 function calcDist(one, two) {
-  return Math.sqrt(Math.abs((one.x - two.x) * (one.x - two.x)) +
-      Math.abs((one.y - two.y) * (one.y - two.y)));
+  return Math.sqrt(
+    Math.abs((one.x - two.x) * (one.x - two.x)) +
+      Math.abs((one.y - two.y) * (one.y - two.y))
+  );
 }
 
-function generateNewItem(canvasWidth, canvasHeight, randomParam = 0) {
+function generateNewItem(
+  canvasWidth,
+  canvasHeight,
+  hideDistance,
+  randomParam = 0
+) {
+  const rand = Math.random() * 4;
+
+  if (rand < 1) {
+    // left
+    return {
+      x: -hideDistance / 2,
+      y: Math.random() * canvasHeight,
+      step: 0.5 + Math.random() * 0.5,
+      degree: ((30 + Math.random() * 120) * Math.PI) / 180,
+    };
+  }
+  if (rand < 2) {
+    // top
+    return {
+      x: Math.random() * canvasWidth,
+      y: -hideDistance / 2,
+      step: 0.5 + Math.random() * 0.5,
+      degree: ((-60 + Math.random() * 120) * Math.PI) / 180,
+    };
+  }
+  if (rand < 3) {
+    // right
+    return {
+      x: canvasWidth + hideDistance / 2,
+      y: Math.random() * canvasHeight,
+      step: 0.5 + Math.random() * 0.5,
+      degree: ((-30 - Math.random() * 120) * Math.PI) / 180,
+    };
+  }
+  // bottom
+  return {
+    x: Math.random() * canvasWidth,
+    y: canvasHeight + hideDistance / 2,
+    step: 0.5 + Math.random() * 0.5,
+    degree: ((120 + Math.random() * 120) * Math.PI) / 180,
+  };
+
   return Math.random() > canvasHeight / canvasWidth
     ? {
-      x: Math.random() * canvasWidth,
-      y: randomParam,
-      step: 0.1 + Math.random() * 0.9
-    }
+        x: Math.random() * canvasWidth,
+        y: randomParam,
+        step: 0.5 + Math.random() * 0.5,
+        degree: Math.random() * 180,
+      }
     : {
-      x: randomParam,
-      y: Math.random() * canvasHeight,
-      step: 0.1 + Math.random() * 0.9
-    };
+        x: randomParam,
+        y: Math.random() * canvasHeight,
+        step: 0.5 + Math.random() * 0.5,
+        degree: Math.random() * 180,
+      };
 }
 
 function findNearItems({
   items,
   connectLength,
-  step,
   canvasHeight,
-  canvasWidth
+  canvasWidth,
+  hideDistance,
 }) {
   const lines = [];
   const newItems = [];
 
-  let x = 0;
-  let y = 0;
+  let newX = 0;
+  let newY = 0;
 
   for (let i = 0; i < items.length; i += 1) {
-    x = items[i].x + items[i].step;
-    y = items[i].y + items[i].step;
+    const { step, degree, x, y } = items[i];
+    newX = x + step * Math.sin(degree);
+    newY = y + step * Math.cos(degree);
 
-    if (x > canvasWidth || y > canvasHeight) {
-      newItems.push(generateNewItem(canvasWidth, canvasHeight));
+    if (
+      x > canvasWidth + hideDistance ||
+      x < -hideDistance ||
+      y > canvasHeight + hideDistance ||
+      y < -hideDistance
+    ) {
+      newItems.push(generateNewItem(canvasWidth, canvasHeight, hideDistance));
     } else {
-      newItems.push({ x, y, step: items[i].step });
+      newItems.push({
+        x: newX,
+        y: newY,
+        step: items[i].step,
+        degree: items[i].degree,
+      });
     }
   }
 
@@ -53,7 +110,7 @@ function findNearItems({
           x1: one.x,
           y1: one.y,
           x2: two.x,
-          y2: two.y
+          y2: two.y,
         });
       }
     }
@@ -61,7 +118,7 @@ function findNearItems({
 
   return {
     lines,
-    items: newItems
+    items: newItems,
   };
 }
 

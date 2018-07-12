@@ -62,7 +62,7 @@
 
 @media (max-width: 768px) {
   .block3 {
-    padding: 4rem;
+    padding: 2rem;
   }
   .b3__wrapper {
     margin-top: 2rem;
@@ -75,6 +75,7 @@
   }
   .b3__item-text {
     padding-top: 1rem;
+    letter-spacing: 0.1rem;
     font-size: 0.9em;
   }
 }
