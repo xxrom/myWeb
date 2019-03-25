@@ -8,7 +8,7 @@ function Background(numberItems) {
 
   this.ctx = this.myCanvas.getContext('2d');
 
-  this.myCanvas.width = window.innerWidth;
+  this.myCanvas.width = document.getElementsByClassName('block5')[0].width; // window.innerWidth;
   this.myCanvas.height = getFooterHeight.call(this);
 
   this.updateTime = 60;
